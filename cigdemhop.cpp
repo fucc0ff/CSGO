@@ -54,7 +54,7 @@ struct cigdem
 
 	DWORD dusmanCH()
 	{
-		return RM<DWORD>(RM<DWORD>(Boffsets::dwClient + Boffsets::dwEntity) + ((crosshairid() - 1) * Boffsets::dwELD));
+		return RM<DWORD>(Boffsets::dwClient + Boffsets::dwEntity + ((crosshairid() - 1) * Boffsets::dwELD));
 	}
 
 	int dusmancan()
