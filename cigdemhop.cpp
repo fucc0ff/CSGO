@@ -7,17 +7,22 @@ using namespace std;
 
 namespace Boffsets {
 	DWORD dwClient;
-	DWORD dwForceJump = 0x50E13BC;
-	DWORD dwLocalPlayer = 0xC618AC;
+	DWORD dwEngine;
+	DWORD dwForceJump = 0x50E33AC;
+	DWORD dwLocalPlayer = 0xC638AC;
 	DWORD dwHealth = 0xFC;
 	DWORD dwfFlags = 0x100;
 	DWORD dwcrosshairoff = 0xB2DC;
 	DWORD dwELD = 0x10;
 	DWORD dwTeamOff = 0xF0;
-	DWORD dwEntity = 0x4C3E674;
-	DWORD dwAttack = 0x307FD44;
+	DWORD dwEntity = 0x4C40664;
+	DWORD dwAttack = 0x3081D40;
 	DWORD dwGlowIndex = 0xA344;
-	DWORD dwGlowObj = 0x517D930;
+	DWORD dwGlowObj = 0x517F940;
+	DWORD dwVecOrigin = 0x134;
+	DWORD dwVecView = 0x104;
+	DWORD dwClientSTof = 0x588B34;
+	DWORD dwVecViewAngles = 0x4D10;
 }
 
 #define FL_ONGROUND ( 1 << 0 )
