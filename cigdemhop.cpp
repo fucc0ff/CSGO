@@ -26,30 +26,12 @@ namespace Boffsets {
 	DWORD dwVecViewAngles = 0x4D10;
 }
 
-#define Pi 3.141592
-
 #define FL_ONGROUND ( 1 << 0 )
 
-struct vec4
-{
-	float x, y, z;	
-};
-
-vec4 OurLoc, EntityLoc, Angels, eymAngles;
-
-float Bestie = 0;
-float EnemyLocEyes;
-float OurLocEyes;
-float DistEnemy = 999;
-float CurrentDist;
-float CurrDist;
-float Distence(vec4 us,vec4 enemy );
-
-int i;
 
 struct cigdem
 {
-	
+
 	DWORD lcl()
 	{
 		return RM<DWORD>(Boffsets::dwClient + Boffsets::dwLocalPlayer);
@@ -115,81 +97,51 @@ struct cigdem
 
 	int EntityTeamFnc(int i)
 	{
-		DWORD Entity = this-> Entity(i);
+		DWORD Entity = this->Entity(i);
 		return RM<int>(Entity + Boffsets::dwTeamOff);
 	}
-
-	int EntityLoc(int i)
-	{
-		DWORD Entity = this->Entity(i);
-		return RM<int>(Entity + Boffsets::dwVecOrigin);
-	}
-
-	int OurLoc()
-	{
-		DWORD lcl = this->lcl();
-		return RM<int>(lcl + Boffsets::dwVecOrigin);
-	}
-
-	int EntityView(int i)
-	{
-		DWORD Entity = this->Entity(i);
-		return RM<int>(Entity + Boffsets::dwVecView);
-	}
-
 	int GlowInd(int i)
 	{
 		DWORD Entity = this->Entity(i);
 		return RM<int>(Entity + Boffsets::dwGlowIndex);
 	}
 
-	DWORD ClientSt()
-	{
-		return RM<DWORD>(Boffsets::dwEngine + Boffsets::dwClientSTof);
-	}
-
-
-	float Angels()
-	{
-		DWORD ClientSt = this->ClientSt();
-		return RM<float>(ClientSt + Boffsets::dwVecViewAngles);
-	}
-	void gl0w1(int i ,float z)
+	void gl0w1(int i, float z)
 	{
 		DWORD GlowObj = this->GlowObj();
 		int GlowInd = this->GlowInd(i);
 		WM<float>(GlowObj + ((GlowInd * 0x38) + 0x4), z);
 	}
 
-	void gl0w2(int i ,float b)
+	void gl0w2(int i, float b)
 	{
 		DWORD GlowObj = this->GlowObj();
 		int GlowInd = this->GlowInd(i);
 		WM<float>(GlowObj + ((GlowInd * 0x38) + 0x8), b);
 	}
 
-	void gl0w3(int i,float r)
+	void gl0w3(int i, float r)
 	{
 		DWORD GlowObj = this->GlowObj();
 		int GlowInd = this->GlowInd(i);
 		WM<float>(GlowObj + ((GlowInd * 0x38) + 0xC), r);
 	}
 
-	void gl0w4(int i ,float u)
+	void gl0w4(int i, float u)
 	{
 		DWORD GlowObj = this->GlowObj();
 		int GlowInd = this->GlowInd(i);
 		WM<float>(GlowObj + ((GlowInd * 0x38) + 0x10), u);
 	}
 
-	void gl00w(int i ,bool l)
+	void gl00w(int i, bool l)
 	{
 		DWORD GlowObj = this->GlowObj();
 		int GlowInd = this->GlowInd(i);
 		WM<bool>(GlowObj + ((GlowInd * 0x38) + 0x24), l);
 	}
 
-	void gl000w(int i ,bool m)
+	void gl000w(int i, bool m)
 	{
 		DWORD GlowObj = this->GlowObj();
 		int GlowInd = this->GlowInd(i);
@@ -212,32 +164,16 @@ struct cigdem
 
 struct cigdem *pcigdem;
 
-#define PROCESS "csgo.exe"
-
 
 void sik()
 {
-	
+
 	struct cigdem;
 	for (;; Sleep(1))
 	{
 		for (short int i = 0; i < 64; i++)
 		{
-			pcigdem->Entity(i);
-			if (pcigdem->bizimtakim() != pcigdem->dusmantakim() && pcigdem->dusmancan() > 0)
-			{
-				pcigdem->EntityLoc(i);
-					pcigdem->OurLoc();
-				CurrDist = Distence(pcigdem->OurLoc, pcigdem->EntityLoc);
-				if (CurrDist < DistEnemy)
-				{
-					DistEnemy = CurrDist;
-					Bestie = i;
-					
-				}
-
-			}
-
+			
 			if (pcigdem->bizimtakim() == pcigdem->EntityTeamFnc(i))
 			{
 				pcigdem->gl0w1(i, 0);
@@ -252,32 +188,10 @@ void sik()
 				pcigdem->gl0w3(i, 0);
 				pcigdem->gl0w4(i, 1);
 			}
-			pcigdem->gl00w(i,true);
-			pcigdem->gl000w(i,false);
+			pcigdem->gl00w(i, true);
+			pcigdem->gl000w(i, false);
 		}
-		while (GetAsyncKeyState(VK_CONTROL))
-		{
-			CurrDist = 99999;
-			DistEnemy = 99999;
-			Bestie;
-			pcigdem->Entity(Bestie);
-			pcigdem->EntityCan(Bestie);
-			if (Bestie > 0 && pcigdem->EntityCan(i) > 0)
-			{
-				pcigdem->OurLoc();
-				pcigdem->Entity(Bestie);
-				pcigdem->EntityLoc(Bestie);
-				pcigdem->EntityView(Bestie);
-				pcigdem->Angels;
-				eymAngles = CalcAci(pcigdem->OurLoc, pcigdem->EntityLoc);
 
-				WriteProcessMemory(pMemory->HandleProcess, (BYTE*)(pcigdem->ClientSt + Boffsets::dwVecViewAngles), &eymAngles.y, sizeof(float), NULL);    //Aim angels
-				WriteProcessMemory(pMemory->HandleProcess, (BYTE*)(pcigdem->ClientSt + Boffsets::dwVecViewAngles + 0x4), &eymAngles.x, sizeof(float), NULL);
-
-
-			}
-		}
-		
 		while (GetAsyncKeyState(VK_MENU))
 		{
 			if (pcigdem->crosshairid() != 0 && pcigdem->crosshairid() < 64)
@@ -313,31 +227,6 @@ void sik()
 
 }
 
-
-vec4 CalcAci(vec4 sors, vec4 dist)
-{
-	vec4 fark;
-	vec4 acilar;
-
-	fark.x = dist.x - sors.x;
-	fark.y = dist.y - sors.y;
-	fark.z = dist.z - sors.z;
-
-	float kare = sqrtf(fark.x*fark.x + fark.y*fark.y +fark.z*fark.z);
-
-	acilar.x = (float)atan2(fark.y, fark.x) * 180.0 / Pi;
-	acilar.y = -(float)atan2(fark.z, kare) * 180.0 / Pi;
-	acilar.z = 0;
-	return acilar;
-}
-
-float Distence(vec4 us, vec4 enemy)
-{
-	float distance = sqrt(pow(enemy.x - us.x, 2) + pow(enemy.y - us.y, 2) + pow(enemy.z - us.z, 2));
-
-	return distance;
-}
-
 int main()
 {
 	if (!FindWindow(NULL, "Counter-Strike: Global Offensive"))
@@ -356,11 +245,4 @@ int main()
 	sik();
 
 
-}
-
-float Distence(vec4 us, vec4 enemy)
-{
-	float distence = sqrt(pow(enemy.x - us.x, 2) + pow(enemy.y - us.y, 2) + pow(enemy.z - us.z, 2));
-
-	return distence;
 }
